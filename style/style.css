@@ -1,0 +1,117 @@
+/* Deactivate scroll*/
+html, body {
+  overflow: hidden;
+}
+
+/* Header */
+.navbar {
+  color: #21303e;
+}
+.dropdown-menu{
+  width: 250px;
+}
+
+/* Sidebar */
+#sidebar-wrapper{
+  z-index: 1;
+  right: 0;
+  position: fixed;
+  width: 0;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+/* Sidebar displayed */
+#wrapper.sidebarDisplayed #sidebar-wrapper{
+  width: 250px;
+}
+#wrapper.sidebarDisplayed #page-content-wrapper{
+  padding-right: 250px;
+}
+
+/* Sidebar styling */
+.sidebar-nav{
+  padding-top: 55px;
+  padding-left: 0px;
+  list-style: none;
+}
+.sidebar-nav div h5,p{
+  padding-left: 10px;
+  line-height: 40px;
+}
+#sidebarClose{
+  position: fixed;
+  z-index:1;
+  background-color: #DCDCDC;
+  width: 250px;
+}
+#sidebarText{
+  padding-top: 35px;
+  position: relative;
+  background: white;
+  opacity: 0.9;
+}
+#inspect_btn{
+  padding-left: 10px;
+}
+
+/* Main content */
+#page-content-wrapper{
+  width: 100%;
+  position: absolute;
+  /* background: white; */
+  /* background: #2C3E50; /* madison */
+  /* background: #1B1B1B; /* eerie black */
+  /* background: #353839; /* onyx */
+  /* background: #1e272c; /* blackpearl*/
+  background: #21303e; /* midnight */
+  /* background: #1C2833; /* blue charcoal */
+}
+
+/* Buttons below navigation bar*/
+#page-content-nav{
+  top: 55px;
+  /* position: fixed; */
+  /* background-color: #ffddb3; */
+  font-size: 16px;
+}
+
+/* Positioning search bar */
+.search_bar_position{
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.search_bar_anim{
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Background color for each cloud */
+.circle{
+  /* fill: rgba(1,1,1,0.05); */
+  fill: black;
+  fill-opacity: 0.4;
+}
+
+/* Tooltip of cursor */
+div.tooltip {
+   position: absolute;
+   text-align: center;
+   width: 100px;
+   /*height: 28px;         */
+   padding: 2px;
+   font: 14px sans-serif;
+   background-color: WhiteSmoke;
+   border: 0px;
+   border-radius: 8px;
+   pointer-events: none;
+ }
+
+/* Give cursor a pointer when mouse over image */
+.picture {
+  cursor: pointer;
+}

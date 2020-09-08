@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Art Clouds</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/searchBar.css">
+    <script src="scripts/autocomplete.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  </head>
+  <body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+      <div class="mr-auto">
+      </div>
+      <div class="mx-auto">
+        <span class="navbar-brand mb-0 h1">ArtClouds</span>
+      </div>
+      <div class="ml-auto btn-group dropleft" id="helpButton">
+        <button type="button" class="btn btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-question-circle fa-lg"></i>
+        </button>
+        <div class="dropdown-menu">
+          <ul>
+            <li><h6>Double click to zoom in and out.</h6></li>
+            <li><h6>Shift + click to delete a cloud.</h6></li>
+            <li><h6>Reposition clouds by dragging.</h6></li>
+            <li><h6>Click on an artwork for more info.</h6></li>
+            <li><h6>Cluster the clouds with the top buttons.</h6></li>
+            <li><h6>Hover over the clouds to see the dominant color of the largest artwork.</h6></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Wrapper for sidebar and page content -->
+    <div id="wrapper">
+
+        <!-- Sidebar wrapper-->
+        <div id="sidebar-wrapper">
+
+                <div class="sidebar-nav" id="rightcolumn" >
+                    <div id="sidebarClose">
+                        <button type="button" class="btn" id="sidebarCloseButton"><span class="close">&times;</span></button>
+                    </div>
+                    <div id="sidebarText">
+                        <div id="title" class="card">
+                            <h5>Title</h5>
+                            <p id="title" class="content"></p>
+                        </div>
+                        <div id="artist_full_name" class="card">
+                            <h5>Full Name Artist</h5>
+                            <p id="artist_full_name" class="content"></p>
+                        </div>
+                        <div id="dimensions" class="card">
+                            <h5>Dimensions</h5>
+                            <p id="dimensions" class="content"></p>
+                        </div>
+                        <div id="date" class="card">
+                            <h5>Year</h5>
+                            <p id="date" class="content"></p>
+                        </div>
+                        <div id="palette_families" class="card">
+                            <h5>Main Colours</h5>
+                            <p id="palette_families" class="content"></p>
+                        </div>
+                        <div id="media" class="card">
+                            <h5>Media</h5>
+                            <p id="media" class="content"></p>
+                        </div>
+                        <div id="collection_origins" class="card">
+                            <h5>Origin of the Collection</h5>
+                            <p id="collection_origins" class="content"></p>
+                        </div>
+                        <div id="description" class="card">
+                            <h5>About the artwork</h5>
+                            <p id="description" clas="content"></p>
+                        </div>
+
+                        <div id="inspect" class="card">
+                            <h5>Inspect</h5>
+                            <form class="content" target="_blank" id="inspect_btn">
+                                <input type="submit" class="btn" value="Image"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+        </div>   <!-- end sidebar wrapper-->
+
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+
+                <div id="page-content-nav" class="container-fluid sticky-top">
+                    <div class="row">
+                      <div  class="col-sm-12">
+                        <nav id="btnbar-clusters" class="nav nav-pills nav-fill">
+                          <a class="nav-item nav-link active"  href="#normal" id="combine">Normal view</a>
+                          <a class="nav-item nav-link"  href="#sortyear" id="yearCluster45"> Cluster before/after 1945</a>
+                          <a class="nav-item nav-link"  href="#sortschool" id="yearCluster1900"> Cluster before/after 1900</a>
+                        </nav>
+                      </div>
+                    </div>
+                </div>
+
+                <div id="art-cloud"></div>
+
+                <div id="search_bar" class="search_bar_position">
+                    <form autocomplete="off" onSubmit="return handleClick()">
+                      <div class="autocomplete" style="width:300px;">
+                        <input id="myVal" type="text" name="artistLastName" placeholder="Artist's last name">
+                      </div>
+                      <input name="Submit"  type="submit" value="Search" >
+                    </form>
+                </div>
+
+        </div> <!-- end page content wrapper -->
+
+    </div> <!-- end wrapper -->
+
+    <script src="scripts/clouds.js"> </script>
+
+  </body>
+
+  <script type="text/javascript">
+
+    // Searchbar moves from the middle to the top
+    $("#search_bar").on("submit",function (e) {
+        $("#search_bar").removeClass('search_bar_position');
+        $("#search_bar").addClass('search_bar_anim');
+    });
+
+    // Sidebar appears and content changes when clicking on pictures
+    $('body').on('click', '#picture', function(e) {
+      e.preventDefault();
+      $('#wrapper').addClass('sidebarDisplayed');
+    });
+
+    // Sidebar closes by clicking on close button
+    $('#sidebarCloseButton').click(function (e){
+      e.preventDefault();
+      $('#wrapper').removeClass('sidebarDisplayed');
+    });
+
+
+  </script>
+
+</html>
