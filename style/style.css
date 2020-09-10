@@ -1,6 +1,29 @@
 /* Deactivate scroll*/
 html, body {
   overflow: hidden;
+  height: : 100%;
+}
+
+/* div that contains svg */
+.svg-container {
+    z-index: 1;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: calc(100% - 95px); /* navbar + cluster buttons: 55px + 40px */
+    /*padding-bottom: 100%;*/
+    top: 55px;
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content {
+    z-index: 1;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 /* Header */
@@ -11,9 +34,63 @@ html, body {
   width: 250px;
 }
 
+
+/* Main content */
+#page-content-wrapper{
+  /*z-index: 0;*/
+  width: 100%;
+  /*min-height:0;*/
+  /*height: 680px;*/
+  height: 100%;
+  /*padding-bottom: 100%;*/
+  box-sizing: border-box;
+  position: absolute;
+  /* background: white; */
+  /* background: #2C3E50; /* madison */
+  /* background: #1B1B1B; /* eerie black */
+  /* background: #353839; /* onyx */
+  /* background: #1e272c; /* blackpearl*/
+  background: #21303e; /* midnight */
+  /* background: #1C2833; /* blue charcoal */
+}
+
+/* Buttons below navigation bar*/
+#page-content-nav{
+  z-index: 1;
+  top: 55px;
+  /* position: fixed; */
+  /* background-color: #ffddb3; */
+  font-size: 16px;
+}
+
+/* Positioning search bar */
+.search_bar_position{
+  z-index: 2;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.search_bar_anim{
+  z-index: 2;
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Background color for each cloud */
+.circle{
+  /* fill: rgba(1,1,1,0.05); */
+  fill: black;
+  fill-opacity: 0.4;
+}
+
+
+
 /* Sidebar */
 #sidebar-wrapper{
-  z-index: 1;
+  z-index: 2;
   right: 0;
   position: fixed;
   width: 0;
@@ -26,8 +103,12 @@ html, body {
   width: 250px;
 }
 #wrapper.sidebarDisplayed #page-content-wrapper{
+  padding-right: 0px;
+}
+#wrapper.sidebarDisplayed #page-content-nav{
   padding-right: 250px;
 }
+
 
 /* Sidebar styling */
 .sidebar-nav{
@@ -41,7 +122,7 @@ html, body {
 }
 #sidebarClose{
   position: fixed;
-  z-index:1;
+  z-index:2;
   background-color: #DCDCDC;
   width: 250px;
 }
@@ -55,47 +136,6 @@ html, body {
   padding-left: 10px;
 }
 
-/* Main content */
-#page-content-wrapper{
-  width: 100%;
-  position: absolute;
-  /* background: white; */
-  /* background: #2C3E50; /* madison */
-  /* background: #1B1B1B; /* eerie black */
-  /* background: #353839; /* onyx */
-  /* background: #1e272c; /* blackpearl*/
-  background: #21303e; /* midnight */
-  /* background: #1C2833; /* blue charcoal */
-}
-
-/* Buttons below navigation bar*/
-#page-content-nav{
-  top: 55px;
-  /* position: fixed; */
-  /* background-color: #ffddb3; */
-  font-size: 16px;
-}
-
-/* Positioning search bar */
-.search_bar_position{
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.search_bar_anim{
-  position: absolute;
-  top: 7%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Background color for each cloud */
-.circle{
-  /* fill: rgba(1,1,1,0.05); */
-  fill: black;
-  fill-opacity: 0.4;
-}
 
 /* Tooltip of cursor */
 div.tooltip {

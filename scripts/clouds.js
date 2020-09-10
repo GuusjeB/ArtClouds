@@ -14,18 +14,23 @@ var meanYear;
 var id;
 var previous_circle_viewbox;
 
-const reference_canvas_width = 20000,
+const reference_canvas_width = 20000;
       reference_canvas_height = 20000;
 
-const svg_width = 1500,
-      svg_height = 1500;
 
+var container_width = document.getElementById("art-cloud").offsetWidth;
+var container_height = document.getElementById("art-cloud").offsetHeight;
+
+console.log("container_width  " + container_width);
+console.log(" container_height " + container_height);
 // Create SVG container
+// // The preserveAspectRatio attribute, determines if the SVG should scale when the aspect 
+// // ratio defined in viewBox doesn’t match the ratio in the parent container.
 var svg = d3.select("#art-cloud")
       .append("svg")
-      .attr("height", svg_height)
-      .attr("width", svg_width)
-      .attr("viewBox", 0 + ' ' + 0 + ' ' + svg_width + ' ' + svg_width);
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .attr("viewBox", 0 + ' ' + 0 + ' ' + container_width + ' ' + container_height) // changed svg_height to 2000 to get bubble in the middle
+      .classed("svg-content", true);
 
 // Define the div for the tooltip
 let tooltip = d3.select("body").append("div")
@@ -76,7 +81,7 @@ function showSidebar(dataPoint) {
 // Force Layout
 var multiplier = 10;
 var forceCollide = d3.forceCollide(function(d){ return d.circle_radius; })
-var forceXCombine = d3.forceX(svg_width/4).strength(.01 * multiplier)
+var forceXCombine = d3.forceX(container_width/4).strength(.01 * multiplier)
 
 var forceXYear45 = d3.forceX(function(d) {
   if ( d.meanYear <= 1945) {
@@ -98,7 +103,7 @@ var forceXYear1900 = d3.forceX(function(d) {
 
 var simulation = d3.forceSimulation()
           .force("forceX", forceXCombine)
-          .force("forceY", d3.forceY(svg_height/12).strength(.01 * multiplier))
+          .force("forceY", d3.forceY(container_height/12).strength(.01 * multiplier))
           .force("charge", d3.forceManyBody().strength(5 * multiplier))
           .force("collide", forceCollide);
 
@@ -187,15 +192,15 @@ function zoomOnCircle(g_elem) {
     if (!zoomed_on_circle) {
         svg.transition()
             .duration(1000)
-            .attr("viewBox", (left-radius) + ' ' + (top-radius) + ' ' + (radius*5) + ' ' + radius*5);
-
+            // .attr("viewBox", (left-radius) + ' ' + (top-radius) + ' ' + (radius*5) + ' ' + radius*5);
+            .attr("viewBox", 150 + ' ' + 200 + ' ' + (container_width -450) + ' ' + (container_height-400));
         simulation.stop();
         zoomed_on_circle = true;
     }
     else {
         svg.transition()
             .duration(1000)
-            .attr("viewBox", 0 + ' ' + 0 + ' ' + svg_width + ' ' + svg_width);
+            .attr("viewBox", 0 + ' ' + 0 + ' ' + container_width + ' ' + container_height);
         zoomed_on_circle = false;
         simulation.restart();
     }
@@ -227,10 +232,10 @@ function create_cloud(searchValue) {
     d3.csv("csv/" + search_input + ".csv").then(function(data) {
         data.forEach(function(d) {
             d.picture = d.omni_id;
-            d.x =  (+d.x * (svg_width/reference_canvas_width))/2;
-            d.y = (+d.y * (svg_height/reference_canvas_height))/2;
-            d.height = (+d.height * (svg_height/reference_canvas_height))/2;
-            d.width = (+d.width * (svg_width/reference_canvas_width))/2;
+            d.x =  (+d.x * (container_height/reference_canvas_height));
+            d.y = (+d.y * (container_height/reference_canvas_height));
+            d.height = (+d.height * (container_height/reference_canvas_height));
+            d.width = (+d.width * (container_height/reference_canvas_height));
             d.surface_area = +d.height * +d.width;
         });
 
@@ -280,13 +285,15 @@ function draw(data) {
     var creation=Date.now();
     id = 'g_' + creation;
 
+     // Place new cloud in center
     cloud = svg.append("g")
                .attr("class", "cloud")
-               .attr('transform', function() {return 'translate(' + [svg_width/2, svg_height/2] + ')'})
+               .attr('transform', function() {return 'translate(' + [container_width/2, container_height/2] + ')'})
                .each(function (d) {
                   meanYear = d3.mean(data, function(d) { return d['date']; })
                   console.log("This circle has mean year: " + meanYear);
                });
+
 
     cloud.append("circle")
             .attr('class', 'circle')
@@ -301,8 +308,7 @@ function draw(data) {
             .on("click", d => showSidebar(d))
             .attr('class', 'picture')
             .attr('id', 'picture')
-            // .attr("href", d => 'D:\Artificial_Intelligence\Information_Visualization\Project\Viz_Project\Viz_Project\d3_demo\images/' + d.picture + '.jpg')  // 'images'/ D:\Artificial_Intelligence\Information_Visualization\Project\Viz_Project\Viz_Project\d3_demo\images
-            .attr("href", d => 'D:\\Artificial_Intelligence\\CodeProjects\\InformationVisualisation\\VizTeam25-master/' + d.picture + '.jpg')  // 'images'/ D:\Artificial_Intelligence\Information_Visualization\Project\Viz_Project\Viz_Project\d3_demo\images
+            .attr('xlink:href', function(d) { return d.image_url; })
             .on("error", function() {
                 d3.select(this).style("visibility", "hidden");
             })

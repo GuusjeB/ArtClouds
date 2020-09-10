@@ -8,6 +8,8 @@ function autocomplete(inp, arr) {
       /*close any already open lists of autocompleted values*/
       closeAllLists();
       if (!val) { return false;}
+      if (val.length < 2) { return false;}
+       console.log("VAL:" + val);
       currentFocus = -1;
       /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
