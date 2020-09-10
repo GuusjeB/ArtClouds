@@ -33,3 +33,8 @@ If the screen gets too full, clouds can be deleted by holding shift while clicki
 <p align="center">
   <img src="https://github.com/GuusjeB/ArtClouds/blob/master/screenshots/ArtCloudsDeleteCloud.gif" width=80% height=80%>
 </p>
+
+
+## Demo
+
+This repository contains a demo version of this project, containing only the data for 4 artists: Picasso, Miro, Dali and Warhol.
